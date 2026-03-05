@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MW Link Shortener</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>MW Link Shortener</h1>
+
+<h2>Register</h2>
+<input id="regEmail" placeholder="email">
+<input id="regPass" placeholder="password" type="password">
+<button onclick="register()">Register</button>
+
+<h2>Login</h2>
+<input id="logEmail" placeholder="email">
+<input id="logPass" placeholder="password" type="password">
+<button onclick="login()">Login</button>
+
+<h2>Create Short Link</h2>
+<input id="longUrl" placeholder="Paste long URL">
+<button onclick="createLink()">Shorten</button>
+
+<p id="result"></p>
+
+<script src="app.js"></script>
+
+</body>
+</html>
