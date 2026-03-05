@@ -72,26 +72,15 @@ def get_current_user(
 # -------------------------
 # Create Link (Rate Limited + Free Plan Limit)
 # -------------------------
+BASE_URL = "https://mw-link-shortener.onrender.com"
+
 @router.post("/links")
-@limiter.limit("10/minute")
 def create_link(
-    request: Request,  # REQUIRED for slowapi
     data: CreateLinkRequest,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    # 🔒 Free plan limit (50 links max)
-    user_links_count = db.query(Link).filter(
-        Link.owner_id == current_user.id
-    ).count()
-
-    if user_links_count >= 50:
-        raise HTTPException(
-            status_code=403,
-            detail="Free plan limit reached (50 links max)"
-        )
-
-    short_code = generate_unique_code(db)
+    short_code = generate_short_code()
 
     new_link = Link(
         original_url=data.original_url,
@@ -104,7 +93,7 @@ def create_link(
     db.refresh(new_link)
 
     return {
-        "short_url": f"http://127.0.0.1:8000/{short_code}"
+        "short_url": f"{BASE_URL}/{short_code}"
     }
 
 
