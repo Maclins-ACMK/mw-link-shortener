@@ -12,3 +12,11 @@ app.add_middleware(SlowAPIMiddleware)
 
 app.include_router(auth_router)
 app.include_router(link_router)
+
+@app.get("/")
+def home():
+    return {
+        "service": "MW Link Shortener API",
+        "status": "running",
+        "docs": "https://mw-link-shortener.onrender.com/docs"
+    }
